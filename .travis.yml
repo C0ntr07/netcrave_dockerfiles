@@ -1,0 +1,30 @@
+dist: trusty
+
+env:
+  global:
+  - secure: NUXAhgZrzQ3Y2RQeoIXxQY7UpDX0nwaZCdJgVq5sU7f2a8YZMaAaWgkGkLpoqGwkEkir9xCtIvJ1uYLwlvBqegExKOA4l5CEDhMnOcS/it2atK8wGzgSzs6HWeuzZoytvZN+YniIaV2uYo1MR7OSWnOch61exLMeeZtyjDukNdY2x76MgHFar0plmyQGV5PBJ/WfVaZgMPOrS6EgZlbFLAAhhlNJo12LnJR2yPd94VIvyK8u7PQFO0luX3SMke9MgPgiOh3fdNdXlDV109UZXr49rgmXw7MEIPUh8bRrtC/KNsOrcytCmJbGV3YwshWZH75+vFlnXgxEVtjWZxTTmhI2G4p5ssfNzgBeufbxVV9q/XJlXbmiRRj1fF3vN6ZUdJIp9M/3zli3cACHQPOk/684uxVzQWsKSkwYoem7XUmFQkV4+VwwdXCj1c4fgQ+UzvHgkzDeeZQO1GCWgZlnFvpZQm2LlulDwZKxZRsUQGbrjfylzRIXt+8bKDSje2JLcP4uNlvRC85e7g58KnoMbMnoa8Xg3+6hI4g9ekepbp8Te6OyWuZ/i/DRSdCarlh+jI+Pr5SCGy3djFwRTdnqAn0Eedd6Gr1RWBhy5y9ToiCpTwrHQXzr4QdlldaS0QNvJK2/A5Rq7IG2jbgBtBDYcAYQBnjSksc1EZ4S72p46XQ=
+  - secure: xlq9efFJhhG1fMFRkIpsbQcY9lolT5RdZWVA9yeBucUcYbM3VcoBo9csQGkze8cKCHZnxeosPFJV/AGbHGKbrAWrJC8TGfBLuvIJhh+M28/2l5Pwi8tgIyjIhN0ukCBr+IRC0ZJfXt1gD0DVE4HDKreG/BzoKckrufcbcVSUFNv9OCGaR3j+wZ+qCpoydLbzUFdiH8R7z9zC9ibXVPlD3H4GuDXOtDilhm4jSw3VKjp1QFGWe9Js6R8RiuSEDnxahWhBfaIMMDM1x6/hKrrDoUYiz1/LYeFwRlrtlgQAxfd4bghCknQ1ho5D7aSWn/oTLLy5UerBDs9dt+d9R3LQlpfnDgn730L8TpqwjFjdwlEPqXYz8WiXRtUBWyc6buSzBn4y81dKT9Jz9u51XM0BTARm9c8jcYzcymKe8oGyreOmm8sawhl482SUhLObdYtwxk+BbWNlcR4wzSX3EO/46lOAv0jB7MHYvatjs1bsFk4E0hge6JzXL/9eFcn2GxHe6WF46vBI7K0QPRkdFZhFeGmMydq+/zvQlqyldQEgQvD3jr7oPRtHiYEPHvZIL1CFfznT1tIqDc5dP504zxJNQAtZWJSoPvT+KxUJ2j7afTayIFnVevFPVZELac3Ot4KppJCHlUEQeYYkveA5ljwhgvJLYpfnZDXB5um4nHGGi44=
+  - secure: a2aY1QPpeonivLJTwCJwL8Dt8ooUDJ3YG0KtSAy3HkVuONeQ652XNqijEGHKBfeh0KLO6TVusO4Wiq1WU6sxmXBPWllwmJ6/D6JzyOf0rafHateRcAUAzNFrDDTIxTSzS7rnsnWW+Ja6lTjOkvPhgjTpAK0f3nj+LCHK7eLgayLFmZAaZt9iIKB0/Z/MO9+j9lKxpu8QDACFVkJGmJfv6atuLs2JffsFvpBwB2yImZy5+3JVcOthEGMUd8Ce+U57Arsi2Y5LEHGupP+uS649G5mJQD/xZKsK/mbF5B84gqbiY4ubwTbTPGOEQHReFy8hmCSTI9FtNTsXWVZQ9DVkzG8pW0FUF+lHFWFa+IlqGz9Tr4uE/uBivALr5eSmoUwVrfN3Z5KAus96EGjN5SHuHbTD03ZAsYwv/Je6LfZ9w9egMapoCzeo8rQ1R+1vhPnnVz4/uYtfgI4+8trjsKwIqFZWlhmO2BcQJLwdAQUDksBaskYx7tAekVQRVm1OzU9BEnyF3EQPFJIB/94JAJdGM0gYVizvCm0U7hTx5e0ulNH25wG1vgC8HNiYaJg7p0dk9z5JgNz76YGXVXLedVW7oGVDCxwEpwdsYxz6sggfzfKf5En00/58QcscSPynOKjdJKR9LxSriNuBr9hlv2GRt3cS/P34nckoaaR9z/FLFws=
+
+jobs:
+  include:
+    - stage: build base docker image
+      script:
+      - cd $TRAVIS_BUILD_DIR/base
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t base .
+      - docker images
+      - docker tag base $DOCKER_USERNAME/base
+      - docker push $DOCKER_USERNAME/base
+    - stage: test
+      script: docker run --rm $DOCKER_USERNAME/base echo "it works!"
+    
+
+after_success:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=sebestblog/travis-demo
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO

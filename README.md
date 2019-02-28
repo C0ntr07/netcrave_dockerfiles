@@ -1,4 +1,12 @@
-# Exporting applications/services and their runtime dependencies 
+# About 
+[![Build Status](https://travis-ci.org/paigeadelethompson/netcrave_dockerfiles.svg?branch=master)](https://travis-ci.org/paigeadelethompson/netcrave_dockerfiles)
+
+Customized Gentoo docker images for Netcrave Communications 
+-
+-
+-
+# Notes
+## exporting applications/services and their runtime dependencies 
 ```
   342  echo $(which apache2) > deps
   343  echo $(which nginx) >> deps
