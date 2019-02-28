@@ -1,7 +1,7 @@
 # Unprivileged; Yes it works:
 - `docker build -t netcrave/qemu_in_a_container .`
 - `docker run -it netcrave/qemu_in_a_container`
-- Press Control-a<release>press c to switch between serial and qemu monitor 
+- Press Control-a<release>press c to switch between serial and qemu monitor. Helpful because you can switch over to the monitor to run `system_reset` then switch back, and hit F2 to drop into the BIOS. 
 ## Reasons why 
 - because I am a pro qemu power-user
 - I'm disabling vmx: 
