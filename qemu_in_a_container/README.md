@@ -28,3 +28,5 @@ jenkins.
 
 - I'll try to get qemu-system-sparc up for those who want to grab SunOS and run Solaris (easy)
 - I need a job does anybody need a solaris admin? 
+- added ipxe option rom and userspace networking (networking not finished but its there, boots to ipxe) `-net nic,model=virtio -net 
+tap,fd=3 3<>/dev/tap11`
