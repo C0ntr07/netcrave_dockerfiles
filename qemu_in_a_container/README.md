@@ -15,7 +15,7 @@
 -device virtio-serial-pci \
 -serial 'mon:stdio' \
 -bios OVMF.fd -pflash ovmf.var`
-
+```
 ## Notes
 
 ### nested vmx capabilities
