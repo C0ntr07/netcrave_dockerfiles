@@ -11,15 +11,14 @@ jobs:
     - stage: build base docker image
       script:
       - cd $TRAVIS_BUILD_DIR/base
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
       - docker build -t base .
       - docker images
-      - docker tag base $DOCKER_USERNAME/base
-      - docker push $DOCKER_USERNAME/base
+      - docker tag base $DOCKER_USER/base
+      - docker push $DOCKER_USER/base
     - stage: test
-      script: docker run --rm $DOCKER_USERNAME/base echo "it works!"
+      script: docker run --rm $DOCKER_USER/base echo "it works!"
     
-
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=sebestblog/travis-demo
