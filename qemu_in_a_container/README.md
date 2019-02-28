@@ -1,7 +1,7 @@
 # Unprivileged; Yes it works:
 - `docker build -t netcrave/qemu_in_a_container .`
 - `docker run -it netcrave/qemu_in_a_container`
-
+- Press Control-a<release>press c to switch between serial and qemu monitor 
 ## Reasons why 
 - because I am a pro qemu power-user
 - I'm disabling vmx: 
@@ -24,3 +24,7 @@ I don't think I'm gonna go that far though because this is good enough, after al
 jenkins. 
 
 
+### Bonus 
+
+- I'll try to get qemu-system-sparc up for those who want to grab SunOS and run Solaris (easy)
+- I need a job does anybody need a solaris admin? 
