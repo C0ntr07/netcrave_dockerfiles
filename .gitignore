@@ -1,0 +1,6 @@
+usr/portage/*
+var/tmp/*
+var/lib/gentoo/*
+var/lib/layman/*
+!var/lib/layman/make.conf
+var/log/*

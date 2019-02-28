@@ -1,0 +1,8 @@
+www-servers/nginx aio Enables file AIO support http http-cache http2 luajit pcre-jit rtmp ssl
+# required by www-servers/nginx-1.14.2-r3::gentoo[nginx_modules_http_image_filter]
+# required by nginx (argument)
+>=media-libs/gd-2.2.5-r1 jpeg png
+# required by www-servers/apache-2.4.34-r2::gentoo
+# required by www-servers/nginx-1.14.2-r3::gentoo[nginx_modules_http_security]
+# required by nginx (argument)
+>=dev-libs/apr-util-1.6.1-r3 ldap
