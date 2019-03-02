@@ -30,3 +30,9 @@ I don't think I'm gonna go that far though because this is good enough, after al
 - added ipxe option rom and userspace networking (networking not finished but its there, boots to ipxe) `-net nic,model=virtio -net tap,fd=3 3<>/dev/tap11`
 - interface docker (inside of qemu) with qemu serial port https://stackoverflow.com/questions/24225647/docker-a-way-to-give-access-to-a-host-usb-or-serial-device
 - expose qemu serial port to container as unix socket: https://wiki.qemu.org/Features/ChardevFlowControl
+
+
+### Notes
+- OpenBSD serial console ( http://www.weirdnet.nl/openbsd/serial/ )  there might be a way to modify the install.fs so that the boot.conf 
+defaults to using com0 from the linux container (without root)
+

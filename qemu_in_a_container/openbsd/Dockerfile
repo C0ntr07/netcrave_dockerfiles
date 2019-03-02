@@ -10,6 +10,8 @@ RUN cp /usr/share/ovmf/OVMF.fd .
 
 RUN dd of=OVMF.vars bs=1k conv=notrunc if=OVMF.fd
 
+COPY vm.ini /vm.ini
+
 COPY start.sh /start.sh
 
 RUN chmod +x /start.sh
